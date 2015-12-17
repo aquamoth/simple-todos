@@ -15,6 +15,9 @@ if (Meteor.isClient) {
     },
     hideCompleted: function body_helper_hideCompleted(){
       return Session.get("hideCompleted");
+    },
+    incompleteCount: function(){
+      return Tasks.find({checked:{$ne: true}}).count();
     } 
   });
   
@@ -51,9 +54,5 @@ if (Meteor.isClient) {
       Tasks.remove(this._id);
     }
   });
-      
-  
-  
-  
 
 }
