@@ -1,9 +1,16 @@
-/* global Meteor, Mongo, Session, Template, Tasks */
+/* global Meteor, Mongo, Session, Template, Accounts, Tasks */
 Tasks = new Mongo.Collection("tasks");
 
+if (Meteor.isServer){
+  //This code only runs on the server
+  Meteor.publish("tasks", function(){
+    return Tasks.find();
+  })
+}
 if (Meteor.isClient) {
   //This code only runs on the client
-
+  Meteor.subscribe("tasks");
+  
   Template.body.helpers({
     tasks: function body_helper_tasks() {
       //Show newest tasks at the top
